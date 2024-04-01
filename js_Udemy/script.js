@@ -16,8 +16,10 @@ values 2 types 1.object, 2.primitive;
 5. NULL : it is an empty value;
 6. Symbol : it is used for unique ness i.e u can redeclare a same named variable in symbol but it will be considered as unique;
 7. Bigint : To represent bigger size number value it is used;
-js has dynamic type i.e. let val = 3 ; it"ll automatically take val as a number ; problem is not variable is dynamic so may be possibilities of bugs;
+/*--------------------------------------------------------------------------------------------------------*/
+/*js has dynamic type i.e. let val = 3 ; it"ll automatically take val as a number ; problem is not variable,it is dynamic so may be possibilities of bugs;
 type of(null) = object, typeof(undefined) = undefined;
+
 operators:
 Math: - + * /
 assignment operator:- =, --, +=,++;
@@ -77,17 +79,104 @@ js has type coerction , and type conversion; conversion is converting one data t
 // const popped = nArr.shift();console.log(popped);console.log(nArr); both act same as removing the initials of the array and returns the removed element;
 /* object: where dot and [] notations are used using . wecan access the objects properties i.e keys:values and also the methods(functions);
 using [] ,(it takes string as example in below)we can do the same with an extra advantage of accessing them by any expression also;
-*/
-const ssd = {
-    fullName: 'Shraddha Suman Dash',
-    age: 23,
-    location: 'pipili',
-    calc : function(){
-        this.birthYear = 2024 - this.age;   //here it is amethod(function in object is called as method) using this key word yiu can access the elements in the function this means the element in the near or inside the function the keyword is used;
-        return this.birthYear; 
-    }
-};
-console.log(ssd);
-console.log(ssd.fullName , ssd['age']); //op is shraddha suman dash 22;
-console.log(ssd.calc() ); // 2001; 
-console.log(ssd.birthYear , ssd['birthYear'])
+*/ 
+// THIS IS ALL ABOUT OBJECT
+// const ssd = {
+//     fullName: 'Shraddha Suman Dash',
+//     age: 23,
+//     location: 'pipili',
+//     calc : function(){
+//         this.birthYear = 2024 - this.age;   //here it is amethod(function in object is called as method) using this key word yiu can access the elements in the function this means the element in the near or inside the function the keyword is used;
+//         return this.birthYear; 
+//     }
+// };
+// console.log(ssd);
+// console.log(ssd.fullName , ssd['age']); //op is shraddha suman dash 22;
+// console.log(ssd.calc() ); // 2001; 
+// console.log(ssd.birthYear , ssd['birthYear']) //2001 2001
+//JAVASCRIPT ENGINE:
+/*js engine has CALL STACK and HEAP: where call stack:- the execution of the code occured and in heap objects are stored*/
+//compilation:- whole code is converted to machinecode and written to a binary file ehich can be run in any computer; file is compiled and made a file but execution is not immediate; like a downloaded app or .exe in our laptop they are already compiled and we run them as execution;
+// interpreter executes source code line by line and oldjs is an interpreter lang so it runs slowly a probllem bt not that much slow;
+//"Noe the modern js lang is a mix of compilation and interpretation i.e. called as:- JIT:- Just In Time compilation thi means there is execution immediately after compilation , and not a portable file is generated;"
+// 1st: parsing :- where the Abstract Syntax Tree is done;this means screening each line of cide and then parting them as per the key words like function const etc;
+//2nd: then COMPILATION which takes AST and converts this to machine code it is JIT compilation
+//3rd: then execution;:happens in call stack;
+// after compilation the code goes for creation of  global execution concept; and in Execution the code 1st goes for global toplevel code execution i.e. the codes that are not functions stored , js always run in execution context , which is an environment where piece of code is executed and all necessary codes for it are stored;
+// each js code han only one global execution context box it may be large acc. to the codes; 
+//2. after creation of global execution context the code goes for execution of top level code inside the global execution context; then functions are executed;
+//let and const are the block scope and var is control scope; types of scopes:- global scope(variables declared ) , function scope(the things or code inside a func can use that variable inside it only) , block scope(if else wala scope);
+
+// const ageagain = function(byear){
+//     const age = 2024 - byear;
+//     console.log(` hey! ${fname} you are ${age} years old;`);
+//     if(byear >=2003 & byear <= 2010){
+//         const str = 'ohaiyo! ssd san ';
+//         var smile = true;
+//         console.log(`common ${fname} you are only a child of ${age}`);
+//     }
+//    // console.log(str);// it wont run as it is out of the block scope;
+//    console.log(smile);// it will display the result as true because var is a function scope not a block scope as it is declared inside the function(inside the if block but will be considered as it is in the function also)
+// }
+
+// const fname = 'ssd';
+// ageagain(2001)//it will use the global variable though it is in function scope;
+// ageagain(2005)// it will use the global variable though it is inside the block scope;
+
+/*-----------------------------------------------------------------------------------------------------------*/
+//HOISTING IN JS
+//in hoisting the variables are usable or accesed before it is declared;
+//in hoisting if you use var as the declaration type then also hoisting works here as like function i.e. func(abc); call before function expression and declaration can be possible means you express func(abc){}
+//after that will work smooth; same goes for var but while printing that var declared elment you will get output as undefined only not the actual answer;
+// but let and const variables are not hoisting variables as we cant access the variable before its declaration in let and const;
+
+//TDZ TEMPORAL DEAD ZONE:
+// const myName = 'ssd';
+// if(myName === 'ssd'){
+//     console.log(`ssd is an ${job}`);//it will show an referrence error as job is declared later as a const declared variable it is in the TDZ so we can't access the job as it is declared after;
+//     const age = 2024 - 2001;
+//     console.log(age);
+//     const job = 'engineer';
+//     console.log(x);
+// }
+//this is the work of tdz as it is helpful in avoiding errors,bugs; because the declaration of variables after its call can be a very proned action for bugs;
+// console.log(me);//  o/p = undefined
+// console.log(job);// o/p = reference error can't access job before initialization
+// console.log(role);// o/p = reference error as mentioned above these are the examples of tdz and hoisting
+// var me = 'hii';
+// const job = 'teach';
+// let role = 'play'; // variables declared in var will be in the properties of window but not for let and const
+/*-----------------------------------------------------------------------------------------------------*/
+
+//THIS KEY WORD:
+//lets say about 4 diff ways a func can be called:
+
+// 1. call the function as a method i.e. function is atteched to an object; when we'l call a method this keyword in it will point to the object;
+//this = <object that is calling the method>
+// const ssd = {
+//     name: 'shraddha',
+//     age : 23,
+//     location : 'pipili',
+//     calcAge : function(){
+//         return 2024 - this.age;// here this refers to object ssd i.e. ssd,age === this.age
+//     }  
+// };
+// console.log(ssd.calcAge());
+
+//2. simple function call; this = simply undefined the above example if it is not a method then it won't take this key word.value as it will take this as a global variable but in strivt mide it will work;
+//3. arrow function; the arroe func donot get ots own this keyword so din't recomended here;
+//4. if it is an event listener : this key word is = <refer to the DOM element the handler is attached to>
+// this key word in global is a window object;
+// 'use strict';
+// console.log(this);//op is a window global key wrod;
+// const calcAge = function(Y){
+//     console.log(2024 - Y);
+//     console.log(this);
+// }
+// calcAge(2001);
+
+// const calcAgeArrow = (Y) =>{
+//     console.log(2024 - Y);
+//     console.log(this);
+// }
+// calcAgeArrow(2000);
